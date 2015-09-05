@@ -28,7 +28,7 @@ sassコンパイラを実行
   * 常に変更を監視
 
 ```
-$ cd /path/to/Bahsh/
+$ cd /path/to/Bahsh/common/
 $ sass --watch scss:css --style expanded
 ```
 </li></ul>
