@@ -7,8 +7,9 @@ $(document).keypress(function(e) {
     addChar("&nbsp;");
   } else if (e.which == 13) {
     // enter
-    $("#console").append("<p class='command'></p>").scrollTop($("#console").get(0).scrollHeight);
+    $("#console").append("<p class='command'></p>");
   }
+  $("#console").scrollTop($("#console").get(0).scrollHeight);
 });
 
 function addChar(c) {
