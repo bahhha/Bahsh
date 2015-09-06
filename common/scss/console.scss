@@ -1,6 +1,21 @@
 @import "font.scss";
 @import "animation.scss";
 
+@mixin console-line {
+  line-height: 24px;
+  min-height: 24px;
+  font-family: "RictyDiminished";
+  color: #ddd;
+  font-size: 18px;
+}
+
+@mixin nonvisible {
+  background-color: transparent;
+  color: rgba(0, 0, 0, 1);
+  border-style: none;
+  outline: none;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -10,37 +25,43 @@ html,
 body {
   width: 100%;
   height: 100%;
+  border: none;
+}
+
+body {
+  background-color: #222;
+}
+
+#scroll-area {
+  width: 100%;
+  height: 100%;
 }
 
 #console {
-  background-color: #222;
-  word-wrap: break-word;
-  height: 100%;
-  width: 100%;
-  overflow-y: scroll;
+  margin: 32px;
   position: relative;
+
   p {
-    line-height: 24px;
-    min-height: 24px;
-    font-family: "RictyDiminished";
-    color: #ddd;
+    @include console-line;
     margin: 0 46px;
-    &:first-child {
-      margin-top: 32px;
+    word-break: break-all;
+  }
+
+  .command {
+    &::before {
+      content: "$";
+      position: absolute;
+      left: 28px;
     }
-    &:last-child {
-      margin-bottom: 32px;
-    }
-    &.command {
-      &::before {
-        content: "$";
-        position: absolute;
-        left: 32px;
-      }
-      &:last-child::after {
-        content: "_";
-        animation: blink 1s step-end infinite;
-      }
+
+    &:last-of-type::after {
+      content: "_";
+      animation: blink 1s step-end infinite;
     }
   }
+}
+
+#input-dummy {
+  position: absolute;
+  left: -100000px;
 }
