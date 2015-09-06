@@ -7,6 +7,7 @@
   font-family: "RictyDiminished";
   color: #ddd;
   font-size: 18px;
+  margin: 0 46px;
 }
 
 @mixin nonvisible {
@@ -35,6 +36,7 @@ body {
 #scroll-area {
   width: 100%;
   height: 100%;
+  overflow-y: scroll;
 }
 
 #console {
@@ -43,7 +45,6 @@ body {
 
   p {
     @include console-line;
-    margin: 0 46px;
     word-break: break-all;
   }
 
