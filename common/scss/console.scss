@@ -1,20 +1,25 @@
 @import "font.scss";
 @import "animation.scss";
+$console-background-color: #222;
+$console-font-color: #ccc;
+$console-line-height: 24px;
+$console-font-size: 18px;
+$console-command-indent: 18px;
 
-@mixin console-line {
-  line-height: 24px;
-  min-height: 24px;
+@mixin console-line-layout {
+  border: none;
   font-family: "RictyDiminished";
-  color: #ddd;
-  font-size: 18px;
-  margin: 0 46px;
+  font-size: $console-font-size;
+  line-height: $console-line-height;
+  min-height: $console-line-height;
+  word-break: break-all;
+  word-wrap: break-word;
+  width: 100%;
 }
 
-@mixin nonvisible {
-  background-color: transparent;
-  color: rgba(0, 0, 0, 1);
-  border-style: none;
-  outline: none;
+@mixin console-command-layout {
+  @include console-line-layout;
+  text-indent: $console-command-indent;
 }
 
 * {
@@ -26,11 +31,10 @@ html,
 body {
   width: 100%;
   height: 100%;
-  border: none;
 }
 
 body {
-  background-color: #222;
+  background-color: $console-background-color;
 }
 
 #scroll-area {
@@ -40,29 +44,54 @@ body {
 }
 
 #console {
+  cursor: text;
   margin: 32px;
   position: relative;
+  color: $console-font-color;
 
   p {
-    @include console-line;
-    word-break: break-all;
+    @include console-line-layout;
   }
 
   .command {
+    @include console-command-layout;
+    position: relative;
+
     &::before {
-      content: "$";
+      content: "$ ";
+      text-indent: 0;
       position: absolute;
-      left: 28px;
+      left: 0;
     }
 
-    &:last-of-type::after {
-      content: "_";
-      animation: blink 1s step-end infinite;
+    &:last-of-type {
+      background-color: $console-background-color;
+      position: relative;
+      z-index: 1;
+
+      &::after {
+        text-indent: 0;
+        content: "_";
+        position: absolute;
+        animation: blink 1s step-end infinite;
+      }
     }
   }
 }
 
-#input-dummy {
+#caret-checker {
+  @include console-command-layout;
   position: absolute;
-  left: -100000px;
+  left: -10000px;
+}
+
+#input-line {
+  @include console-command-layout;
+  height: $console-line-height;
+  outline: none;
+  overflow-y: auto;
+  resize: none;
+  position: absolute;
+  bottom: 0;
+  z-index: 0;
 }
